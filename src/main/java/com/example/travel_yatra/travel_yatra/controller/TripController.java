@@ -98,7 +98,7 @@ public class TripController {
         // Get the system's default timezone and ZonedDateTime
         java.time.ZoneId systemZone = java.time.ZoneId.systemDefault();
         java.time.ZonedDateTime systemNow = java.time.ZonedDateTime.now(systemZone);
-        // Get the trip data timezone (Asia/Kathmandu)
+        // Get the trip data timezone
         java.time.ZoneId tripZone = java.time.ZoneId.of("Asia/Kathmandu");
         java.time.ZonedDateTime tripZoneNow = systemNow.withZoneSameInstant(tripZone);
         // Use the trip timezone's local time for comparisons
@@ -196,7 +196,7 @@ public class TripController {
                     java.util.UUID fromUuid = java.util.UUID.fromString(fromId);
                     predicates.add(cb.equal(root.get("from").get("id"), fromUuid));
                 } catch (Exception e) {
-                    // Invalid UUID, skip filter or handle as needed
+                    
                 }
             }
             if (toId != null) {
@@ -204,7 +204,7 @@ public class TripController {
                     java.util.UUID toUuid = java.util.UUID.fromString(toId);
                     predicates.add(cb.equal(root.get("to").get("id"), toUuid));
                 } catch (Exception e) {
-                    // Invalid UUID, skip filter or handle as needed
+                    
                 }
             }
             if (busId != null) predicates.add(cb.equal(root.get("bus").get("id"), busId));
@@ -214,7 +214,7 @@ public class TripController {
                     java.util.UUID driverUuid = java.util.UUID.fromString(busDriverId);
                     predicates.add(cb.equal(root.get("busDriver").get("id"), driverUuid));
                 } catch (Exception e) {
-                    // Invalid UUID, skip filter or handle as needed
+                    
                 }
             }
             // Add departure date filter
@@ -223,7 +223,7 @@ public class TripController {
                     java.time.LocalDate depDate = java.time.LocalDate.parse(departureDate);
                     predicates.add(cb.equal(root.get("departureDate"), depDate));
                 } catch (Exception e) {
-                    // Invalid date format, skip filter or handle as needed
+                    
                 }
             }
             // Only include trips with status scheduled, departed, or teardown

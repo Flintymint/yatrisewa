@@ -16,7 +16,7 @@ public interface TripRepository extends JpaRepository<Trip, Long>, JpaSpecificat
     @Query("SELECT t FROM Trip t WHERE t.busDriver.id = :busDriverId")
     List<Trip> findAllTripsByBusDriverId(@Param("busDriverId") UUID busDriverId);
 
-    // Custom update for driver status/reason
+    // Custom update for driver breakdown
     @Modifying
     @Query(value = "UPDATE trip SET trip_status = :tripStatus, reason = :reason WHERE id = :id AND bus_driver_id = :busDriverId", nativeQuery = true)
     int driverUpdateTripStatusAndReason(@Param("id") Long id, @Param("busDriverId") UUID busDriverId, @Param("tripStatus") String tripStatus, @Param("reason") String reason);

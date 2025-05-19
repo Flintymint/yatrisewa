@@ -34,7 +34,7 @@ public class KhaltiPaymentController {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    // 1. Initiate Payment (Generate pidx)
+    // Initiate Payment
     @PostMapping("/initiate")
     public ResponseEntity<?> initiatePayment(@RequestBody KhaltiInitiateRequest req) {
         Map<String, Object> result = khaltiService.initiatePayment(req);
@@ -44,15 +44,12 @@ public class KhaltiPaymentController {
         return ResponseEntity.ok(result);
     }
 
-    // 2. Lookup Payment Status (After Payment)
     @PostMapping("/lookup")
     public ResponseEntity<?> lookupPayment(@RequestBody KhaltiLookupAndBookRequest req, HttpServletRequest httpRequest) {
-        // 1. Lookup payment status from Khalti
         Map<String, Object> result = khaltiService.lookupPayment(req.getPidx());
         if (result.containsKey("error")) {
             return ResponseEntity.status(400).body(result);
         }
-        // 2. If payment is completed, reserve the seat(s)
         String status = (String) result.get("status");
         if ("Completed".equalsIgnoreCase(status)) {
             // Extract user ID from JWT

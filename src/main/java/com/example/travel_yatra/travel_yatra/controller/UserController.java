@@ -62,7 +62,7 @@ public class UserController {
                     && !user.getRole().equals("traveller")) {
                 return ResponseEntity.badRequest().body("Invalid role. Must be one of: admin, bus_driver, traveller");
             }
-            // Hash the password before saving
+            // Hashing password before saving
             String hashed = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashed);
             User saved = userRepository.save(user);

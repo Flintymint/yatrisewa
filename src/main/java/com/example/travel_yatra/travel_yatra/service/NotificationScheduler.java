@@ -38,7 +38,7 @@ public class NotificationScheduler {
             if (trip.getDepartureDate() == null || trip.getDepartureTime() == null) continue;
             LocalDateTime tripDateTime = LocalDateTime.of(trip.getDepartureDate(), trip.getDepartureTime());
             if (tripDateTime.isAfter(now) && tripDateTime.isBefore(oneHourLater.plusMinutes(1))) {
-                // --- Notify Driver ---
+                // Notific Driver
                 User driver = trip.getBusDriver();
                 if (driver != null) {
                     boolean alreadyNotified = notificationRepository.findByUserIdAndSeenFalseOrderByCreatedAtDesc(driver.getId())
@@ -52,7 +52,7 @@ public class NotificationScheduler {
                         notificationRepository.save(notification);
                     }
                 }
-                // --- Notify Travellers ---
+                // Notific Travellers 
                 List<Booking> bookings = bookingRepository.findAllByTripId(trip.getId());
                 for (Booking booking : bookings) {
                     User traveller = booking.getUser();

@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/payments/khalti/initiate").hasRole("TRAVELLER")
                 // Restrict Khalti payment initiation to travellers only
                 .requestMatchers(HttpMethod.POST, "/api/payments/khalti/lookup").hasRole("TRAVELLER")
-                .requestMatchers("/uploads/**").permitAll() // Allow public access to uploaded images
+                .requestMatchers("/uploads/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);

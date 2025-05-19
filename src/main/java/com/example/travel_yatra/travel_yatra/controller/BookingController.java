@@ -25,7 +25,7 @@ public class BookingController {
     @Autowired
     private UserRepository userRepository;
 
-    // Book a seat for a trip (registered user)
+    // Book a seat for a trip 
     @PostMapping("/book")
     @PreAuthorize("hasRole('traveller')")
     public ResponseEntity<?> bookSeat(@RequestBody BookSeatRequest request, HttpServletRequest httpRequest) {
@@ -111,19 +111,6 @@ public class BookingController {
         return ResponseEntity.ok(bookings);
     }
 
-    // Public endpoint to get reservations by email
-    // @GetMapping("/by-email")
-    // public ResponseEntity<?> getReservationsByEmail(@RequestParam("email") String email) {
-    //     Optional<User> userOpt = userRepository.findByEmail(email);
-    //     if (userOpt.isEmpty()) {
-    //         return ResponseEntity.status(404).body("User not found");
-    //     }
-    //     User user = userOpt.get();
-    //     java.util.List<Booking> bookings = bookingRepository.findAllByUserId(user.getId());
-    //     return ResponseEntity.ok(bookings);
-    // }
-
-    // Public endpoint to get unique trips by user email
     @GetMapping("/by-email")
     public ResponseEntity<?> getTripsByEmail(@RequestParam("email") String email) {
         Optional<User> userOpt = userRepository.findByEmail(email);

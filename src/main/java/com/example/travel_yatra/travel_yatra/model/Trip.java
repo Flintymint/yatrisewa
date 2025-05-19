@@ -18,7 +18,7 @@ public class Trip {
     private String reason;
 
     @Column(name = "trip_status", nullable = true)
-    private String tripStatus = "scheduled"; // departed, arrived, teardown (enforced by DB check), Default to scheduled
+    private String tripStatus = "scheduled"; // departed, arrived, teardown ( Default is scheduled )
 
     @Column(name = "departure_date", nullable = false)
     private LocalDate departureDate;
